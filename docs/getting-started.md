@@ -59,4 +59,4 @@ python 01-say-one-thing.py
 
 If all goes well, you should see another participant join the room, greet you by name, and disconnect.
 
-Next, we'll talk about the architecture of Daily AI, and build your first chatbot!
+Next, we'll talk about the architecture of Daily AI bots, so you can build your own!

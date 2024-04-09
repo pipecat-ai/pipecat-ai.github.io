@@ -1,0 +1,8 @@
+{
+  "label": "Understanding Bots",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn the architecture behind Daily AI so you can build your own bots."
+  }
+}
