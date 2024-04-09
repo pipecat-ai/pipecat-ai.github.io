@@ -1,0 +1,8 @@
+{
+  "label": "Your First Bot",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn the architecture of Daily AI as you build a fully functional chatbot in just a few minutes."
+  }
+}
