@@ -1,0 +1,7 @@
+{
+  "label": "Transports",
+  "link": {
+    "type": "generated-index",
+    "description": "Transports connect pipelines to 'the real world'."
+  }
+}
