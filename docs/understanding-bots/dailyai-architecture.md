@@ -6,36 +6,49 @@ sidebar_position: 1
 
 `dailyai` is a framework for building real-time, multimodal AI apps. "Multimodal" means you can use any combination of audio, video, images, and/or text in your interactions. And "real-time" means that things are happening quickly enough that it feels conversational—a "back-and-forth" with a bot, not submitting a query and waiting for results.
 
-One of the best demonstrations of this idea is Storybot, an example app where a bot and a user work together to create an illustrated storybook based on the user's ideas. Here's a video of Storybot in action:
+To understand this, let's look at an example of talking to an LLM-powered chatbot. Here's a video of a conversation with the `chatbot` example app:
 
 (storybot video)
 
-If we didn't care about making this feel like it was happening in real time, we could use this algorithm:
+The flow of the interactions is pretty straightforward:
 
-1. Ask the user for a story idea by having them type it in a text box.
-2. Submit the story idea to an LLM, and wait for the LLM to complete an entire story.
-3. Separate the story into some number of "pages".
-4. Send the text of each page to an AI image generator, and wait for all the image generations to complete.
-5. Send the text of the story (separated by pages) to an AI text-to-speech service.
-6. Combine the generated audio and image from each page to create a small video.
-7. Stitch the videos together to generate the story.
-8. Show the video to the user, and then ask for their input for the next part of the story.
+1. The bot says something.
+2. The user says something.
+3. The bot says something.
+4. The user says something.
 
-(linear workflow image)
+Reapeat until the user gets bored.
+
+Let's look at those interactions from the bot's perspective. Every time the user says something, the bot needs to do several things to say something back:
+
+1. Transcribe and collect all of the user's speech until they stop talking.
+2. Add whatever the user said into a `context` object.
+3. Send the entire context to an LLM.
+4. Collect the full response from the LLM (and add it to the saved context as well).
+5. "Speak" the LLM's response as audio data using a text-to-speech service
+6. Play the audio so the user can hear it
 
 To do this in real time, we still need to do all the same things, but we need to change the order in which they happen. If you've used ChatGPT, you've seen the way it updates one word at a time, almost like a human typing really fast. The API can return completions in the same way—it's called a "streaming response".
 
-Instead of waiting for the entire LLM response, we can watch the text come in a word at a time. As soon as we have the words for the first page, we can start generating the image and speech for that page. Meanwhile, we can keep accumulating LLM response text until we have the text for the second page, then start image generation and text-to-speech for that page, and so on.
+Instead of waiting for the entire LLM response, we can watch the text come in a word at a time. As soon as we have the words for the first sentence of the bot's response, we can start generating the speech for that sentence. Meanwhile, we can keep accumulating LLM response text until we have the text for the second sentence, then start text-to-speech for that page, and so on.
 
-We can start playing back the first page's audio and image for the user as soon as it's done generating. And as long as we can generate the media for the next page before the first page finishes playback, it will feel totally seamless.
+We can start playing back the first stentence's audio for the user as soon as it's done generating. And as long as we can generate the audio for the next sentence before the first sentence finishes playback, it will feel totally seamless.
 
 The diagram for this approach looks like this:
 
-(pipeline image)
+<div style={{textAlign: 'center'}}>
+
+![Basic pipeline image](assets/basic-pipeline.svg)
+
+</div>
 
 This structure is sometimes called a _data processing pipeline_, or just 'pipeline' for short. It's a fundamental part of how `dailyai` apps work. Here's a diagram showing the architecture of `dailyai` apps:
 
-(architecture diagram)
+<div style={{textAlign: 'center'}}>
+
+![DailyAI Architecture](assets/dailyai-architecture.svg)
+
+</div>
 
 There are four important terms in that diagram to define.
 
