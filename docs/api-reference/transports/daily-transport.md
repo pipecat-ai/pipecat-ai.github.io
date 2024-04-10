@@ -45,11 +45,59 @@ The `DailyTransport` can use the VAD support built into the WebRTC library with 
 
 Other transcription events
 
-## transport.run() and run_pipeline()
+## Send and receive behavior
 
-## run_interruptible_pipeline
+### transport.run()
 
-## Other Instance Methods
+`transport.run(pipeline: Pipeline | None = None, override_pipeline_source_queue=True)`
+
+This method runs the transport. For the `DailyTransport`, that includes joining the Daily room and setting up audio/video send and receive, depending on what you've configured.
+
+This method also accepts a `pipeline` argument. If you include a pipeline, the transport will run and manage that [Pipeline](../pipelines) for you. That includes connecting the pipeline's source and sink to the transport's send and receive queues. It will also start and stop your pipeline when the transport starts and stops.
+
+Your app will almost always include some form of `await transport.run()`, usually `await transport.run(pipeline)`.
+
+### transport.run_pipeline()
+
+```python
+async def run_pipeline(pipeline: Pipeline, override_pipeline_source_queue=True):
+```
+
+This method connects the pipeline's source and sink to the transport's send and receive queues, but it doesn't manage the pipeline's lifecycle. You'll need to `await transport.run_pipeline(pipeline)` separately from `await transport.run()`.
+
+The `override_pipeline_source_queue` property is used for a few things internally.
+
+### transport.run_interruptible_pipeline()
+
+```python
+transport.run_interruptible_pipeline(
+    pipeline: Pipeline,
+    pre_processor: FrameProcessor | None = None,
+    post_processor: FrameProcessor | None = None,
+)
+```
+
+This method runs the pipeline connected to the transport's queues, but it runs it inside a cancelable `asyncio.task()`. If the transport detects that the user starts speaking (which generates a `UserStartedSpeaking` frame), the transport will cancel the currently executing `asyncio.task()`, empty all the frames in the transport's send queue, and start a new task.
+
+The end result of this is that you can run the pipeline, and anytime the user speaks, the bot will stop what it's doing and start listening to the user.
+
+Typically, you'll want to create your pipeline such that it expects to receive and accumulate `TranscriptionFrame`s from the user, and start generating a response as soon as it receives a `UserStoppedSpeakingFrame`.
+
+This method also accepts two optional services as `pre_processor` and `post_processor`. As it turns out, `pre_processor` doesn't do anything special, so you can probably ignore it.
+
+But `post_processor` is a bit different. As the transport runs, it consumes the frames coming out of the pipeline: Displaying `ImageFrame`s as video, playing `AudioFrame`s as audio, etc. But when running an interruptible pipeline, the transport will send each frame through the `post_processor` _after_ it finishes doing whatever it's supposed to with that frame. More specifically, each `AudioFrame` goes to the `post_processor` _after it has been successfully played_.
+
+If the pipeline gets interrupted, the contents of the transport's output queue get dumped, so none of those frames go through the `post_processor`.
+
+By convention, immediately after sending `AudioFrame`s with generated speech, [text-to-speech services](../service-types/tts-service) send a `TextFrame` with the text of that speech through the pipeline. So if you put an `LLMContextAggregator` in the `post_processor` of an interruptible pipeline, you can ensure that the bot's context will only contain sentences _it actually said to the user_. If a bot generates an 8-sentence response, but the user interrupts the bot in the middle of the 4th sentence, the context will only contain the first three sentences.
+
+This method does not manage the pipeline lifecycle. You'll still need to do something like:
+
+```python
+asyncio.gather(transport.run(), transport.run_interruptible_pipeline(pipeline))
+```
+
+## Instance Methods
 
 In order to keep the documentation a bit more readable, some of the functionality described here actually comes from a `BaseTransport` class.
 
@@ -61,5 +109,7 @@ In order to keep the documentation a bit more readable, some of the functionalit
 `stop`
 `stop_when_done`
 `interrupt`
+
+tktktk
 
 ## Frame Behaviors

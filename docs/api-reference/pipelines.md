@@ -34,4 +34,4 @@ Use this method to insert frames directly into the source queue of a pipeline. T
 
 ### `run_pipeline()`
 
-It's often easier to let the transport handle running your pipeline. But if you need more control over when and how your pipelines execute, you can use this method to run a pipepline, and `await` it in your app code.
+It's often easier to [let the transport handle running your pipeline](transports/daily-transport#transportrun). But if you need more control over when and how your pipelines execute, you can use this method to run a pipepline, and `await` it in your app code.
