@@ -8,8 +8,8 @@ const FeatureList = [
     img: require("@site/static/img/cat-2.png").default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Read the <a href="docs/intro">docs</a> to learn how to start building
+        bots with Daily AI.
       </>
     ),
   },
@@ -18,18 +18,22 @@ const FeatureList = [
     img: require("@site/static/img/cat-1.png").default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Skip the boring stuff and use an{" "}
+        <a href="https://github.com/daily-co/dailyai-examples">example bot</a>{" "}
+        to get started even faster.
       </>
     ),
   },
   {
-    title: "Get help with something",
+    title: "Hack something",
     img: require("@site/static/img/cat-3.png").default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Find out more at{" "}
+        <a href="https://github.com/daily-co/dailyai">
+          the framework GitHub repo
+        </a>
+        .
       </>
     ),
   },
