@@ -38,7 +38,6 @@ export default function Home() {
     >
       <HomepageHeader />
       <main>
-        tktktk link to framework repo and examples repo
         <HomepageFeatures />
       </main>
     </Layout>
