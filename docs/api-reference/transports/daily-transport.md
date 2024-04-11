@@ -99,18 +99,27 @@ asyncio.gather(transport.run(), transport.run_interruptible_pipeline(pipeline))
 
 ## Instance Methods
 
-In order to keep the documentation a bit more readable, some of the functionality described here actually comes from a `BaseTransport` class.
+(In order to keep the documentation a bit more readable, some of the functionality described here actually comes from a `BaseTransport` class.)
 
-`send_app_message`
-`dialout`
-`start_recording`
+### `send_app_message`
 
-`say`
-`stop`
-`stop_when_done`
-`interrupt`
+Calls daily-python's [`send_app_message`](https://reference-python.daily.co/api_reference.html#daily.CallClient.send_app_message) function.
 
-tktktk
+### `dialout`
+
+Calls [`start_dialout`](https://reference-python.daily.co/api_reference.html#daily.CallClient.start_dialout) in daily-python, which can be used to call SIP or PSTN phone numbers. See the [Daily docs](https://docs.daily.co/guides/products/dial-in-dial-out#main) for more information.
+
+### `start_recording`
+
+Starts a recording of the Daily room. See the [Daily docs](https://docs.daily.co/reference/rest-api/rooms/recordings/start) for more information.
+
+### `say`
+
+This is a convenience method for generating text-to-speech from a given sentence. It bypasses any running pipelines and just sends the sound directly to the transport.
+
+### `stop` and `stop_when_done`
+
+Functions for stopping a running transport. You probably don't need to call these directly; instead, sending an `EndFrame` though your pipeline should stop everything.
 
 ## Frame Behaviors
 
