@@ -2,9 +2,9 @@
 
 ## Frame Types
 
-**Input**: `TextFrame`s (Be careful, because TextFrame subclasses can also cause text-to-speech generation!)
+**Input:** `TextFrame`s (Be careful, because TextFrame subclasses can also cause text-to-speech generation!)
 
-**Output**: TTS services yield these frames, in this order:
+**Output:** TTS services yield these frames, in this order:
 
 1. `TTSStartFrame`
 2. 0 or more `AudioFrame`s

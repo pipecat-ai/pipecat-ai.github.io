@@ -113,3 +113,5 @@ In order to keep the documentation a bit more readable, some of the functionalit
 tktktk
 
 ## Frame Behaviors
+
+tktktk images stay on screen, sprites dance, audio plays blocking, which is nice
