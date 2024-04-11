@@ -22,6 +22,12 @@ The `dailyai` Python module has a lot of optional dependencies, including some p
 pip install dailyai[daily,openai]
 ```
 
+In order to use local audio on MacOS, you'll need to do one more thing:
+
+```bash
+brew install portaudio
+```
+
 :::tip[No Dependencies Required]
 
 Some services, like Eleven Labs and Deepgram, just use built-in Python functionality for REST requests, so they don't have anything extra to install.
