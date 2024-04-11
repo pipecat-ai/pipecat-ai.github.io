@@ -16,9 +16,16 @@ While you can use Daily AI without them, there are a few third-party services yo
 
 ## Installing the module
 
-The `dailyai` Python module has a lot of optional dependencies, including some pretty big AI libraries. The module uses a lot of optional dependencies to allow you to only install what you need. For example, to install `dailyai` along with support for the services above, run this command (or add it to your `requirements.txt`):
+To start, we recommend using a virtual environment, or `venv`, inside a new directory:
 
-tktktk add venv
+```bash
+mkdir dailyai-test
+cd dailyai-test
+python3 -m venv env
+source env/bin/activate
+```
+
+The `dailyai` Python module has a lot of optional dependencies, including some pretty big AI libraries. The module uses a lot of optional dependencies to allow you to only install what you need. For example, to install `dailyai` along with support for the services above, run this command (or add it to your `requirements.txt`):
 
 ```bash
 pip install dailyai[daily,openai]

@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Building Your Own Services
 
-Once you've built a few simple bots by combining existing services, you'll want to start solving more complex problems, which means building your own services. Fortunately, it's pretty straightforward: You create a subclass of `AIService`, and implement a method called `process_frame`. For example, here's a `TranslationProcessor` service, used in the translation example TKTKTK:
+Once you've built a few simple bots by combining existing services, you'll want to start solving more complex problems, which means building your own services. Fortunately, it's pretty straightforward: You create a subclass of `AIService`, and implement a method called `process_frame`. For example, here's a `TranslationProcessor` service, used in the [translation example](https://github.com/daily-co/dailyai-examples/tree/main/translation-chatbot):
 
 ```python
 class TranslationProcessor(AIService):

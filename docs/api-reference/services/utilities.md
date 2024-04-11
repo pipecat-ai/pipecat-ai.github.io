@@ -70,12 +70,27 @@ These services enable some complex pipeline architectures.
 
 ### `ParallelPipeline`
 
-tktktk
+This service lets you run a set of services in parallel, instead of sequentially. For example, it's used in `05-sync-speech-and-image` in [the framework repo](https://github.com/daily-co/daily-ai-sdk/blob/27322108b728adda3708fb59e2ff20e3183efc4e/examples/foundational/05-sync-speech-and-image.py):
+
+```python
+pipeline = Pipeline(
+    processors=[
+        llm,
+        sentence_aggregator,
+        ParallelPipeline(
+            [[month_prepender, tts], [llm_full_response_aggregator, imagegen]]
+        ),
+        gated_aggregator,
+    ],
+)
+```
+
+It's important to keep in mind that the parallel pipeline doesn't let frames get 'out of order'; it takes frame A from its source queue and sends it through all of the parallel pipelines at the same time, but it doesn't start processing frame B from its source queue until all of the parallel branches from frame A have completed and yielded frames to the sink queue.
 
 ### `GatedAggregator`
 
-tktktk
+For more information on the `GatedAggregator`, take a look at [this example in the framework](https://github.com/daily-co/daily-ai-sdk/blob/e22babbae2ef33454158b59831114734adf5f5d8/examples/foundational/05-sync-speech-and-image.py), as well as [the comments in the source code](https://github.com/daily-co/dailyai/blob/db05a9b29b24d483815b60a3e727fae3f874666d/src/dailyai/pipeline/aggregators.py#L418).
 
 ### `VisionImageFrameAggregator`
 
-tktktk
+Use a `VisionImageFrameAggregator` to build a `VisionImageFrame` out of a `TextFrame` and an `ImageFrame`. See [Vision Services](vision-service) for more info.

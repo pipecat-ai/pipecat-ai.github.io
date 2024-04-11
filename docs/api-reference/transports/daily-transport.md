@@ -114,4 +114,10 @@ tktktk
 
 ## Frame Behaviors
 
-tktktk images stay on screen, sprites dance, audio plays blocking, which is nice
+Here's a list of different kinds of frames, and how the `DailyTransport` handles them:
+
+- `AudioFrame`: The transport will break the audio data into ~0.5s chunks and play them using `daily-python`. The audio playback is synchronous in the transport's thread, which means that if the transport's queue contains several `AudioFrame`s followed by an `ImageFrame`, the `ImageFrame` won't get handled until _playback of_ the `AudioFrame`s is completed.
+- `ImageFrame`: When the transport receives an `ImageFrame`, it will display that image in the bot's webcam video inside the Daily call. That image will stay set and appear on screen until another `ImageFrame` is received.
+- `SpriteFrame`: These frames contain a sequence of images. When the transport receives a `SpriteFrame`, it will loop those frames in the bot's webcam video at the configured frame rate of the transport until it receives another `SpriteFrame` or `ImageFrame`.
+- `UserImageRequestFrame`: If the transport's `video_rendering_enabled` property is set to `True`, when it receives a `UserImageRequestFrame`, it will grab a frame from one or all participants' cameras and put those frames into the pipeline as `UserImageFrame`s
+- `SendAppMessageFrame`: If a `DailyTransport` receives this frame, it will use `send_app_message()` from daily-python to send a message to other call participants.
