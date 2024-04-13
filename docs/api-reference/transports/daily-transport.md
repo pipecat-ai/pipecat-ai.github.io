@@ -89,7 +89,7 @@ But `post_processor` is a bit different. As the transport runs, it consumes the 
 
 If the pipeline gets interrupted, the contents of the transport's output queue get dumped, so none of those frames go through the `post_processor`.
 
-By convention, immediately after sending `AudioFrame`s with generated speech, [text-to-speech services](../service-types/tts-service) send a `TextFrame` with the text of that speech through the pipeline. So if you put an `LLMContextAggregator` in the `post_processor` of an interruptible pipeline, you can ensure that the bot's context will only contain sentences _it actually said to the user_. If a bot generates an 8-sentence response, but the user interrupts the bot in the middle of the 4th sentence, the context will only contain the first three sentences.
+By convention, immediately after sending `AudioFrame`s with generated speech, [text-to-speech services](../services/tts-service) send a `TextFrame` with the text of that speech through the pipeline. So if you put an `LLMContextAggregator` in the `post_processor` of an interruptible pipeline, you can ensure that the bot's context will only contain sentences _it actually said to the user_. If a bot generates an 8-sentence response, but the user interrupts the bot in the middle of the 4th sentence, the context will only contain the first three sentences.
 
 This method does not manage the pipeline lifecycle. You'll still need to do something like:
 
