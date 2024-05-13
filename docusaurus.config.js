@@ -14,15 +14,15 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: "https://daily-co.github.io",
+  url: "https://pipecat-ai.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/pipecat-docs/",
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "daily-co", // Usually your GitHub org/user name.
-  projectName: "pipecat-docs", // Usually your repo name.
+  organizationName: "pipecat-ai", // Usually your GitHub org/user name.
+  projectName: "pipecat-ai.github.io", // Usually your repo name.
   trailingSlash: false,
 
   onBrokenLinks: "warn",
@@ -95,8 +95,8 @@ const config = {
                 href: "https://github.com/pipecat-ai/pipecat",
               },
               {
-                label: "GitHub (Examples)",
-                href: "https://github.com/pipecat-ai/pipecat/tree/main/examples",
+                label: "Discord",
+                href: "https://discord.gg/pipecat",
               },
               {
                 label: "Twitter",
@@ -105,7 +105,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Daily.co. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Pipecat.ai. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
