@@ -1,9 +1,9 @@
 # LocalTransport
 
-You can use the `LocalTransport` to build Daily AI apps that directly access the mic, speaker, and camera devices on your computer. You'll need to install the optional `pyaudio` dependency to use the `LocalTransport`:
+You can use the `LocalTransport` to build Pipecat apps that directly access the mic, speaker, and camera devices on your computer. You'll need to install the optional `pyaudio` dependency to use the `LocalTransport`:
 
 ```
-pip install dailyai[pyaudio]
+pip install pipecat[pyaudio]
 ```
 
 On MacOS, you'll also need to `brew install portaudio` for this to work.

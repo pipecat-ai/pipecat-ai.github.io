@@ -1,6 +1,6 @@
 # DailyTransport
 
-The `DailyTransport` is a full-featured transport that enables you to join DailyAI bots to Daily WebRTC video calls. It's built on top of [daily-python](https://docs.daily.co/reference/daily-python), and it gives you access to a lot of advanced features—but it's also a great way to simply use WebRTC as the media backbone for building real-time bot interactions.
+The `DailyTransport` is a full-featured transport that enables you to join Pipecat bots to Daily WebRTC video calls. It's built on top of [daily-python](https://docs.daily.co/reference/daily-python), and it gives you access to a lot of advanced features—but it's also a great way to simply use WebRTC as the media backbone for building real-time bot interactions.
 
 ## DailyTransport.new()
 
@@ -31,7 +31,7 @@ Other available keyword arguments:
 
 ### A bit more about VAD
 
-The `DailyTransport` can use the VAD support built into the WebRTC library with no additional dependencies. However, we recommend installing the optional `silero` dependency if your platform supports it. This is an AI VAD library powered by Torch, and it's generally a bit better at distinguising talking from background noise. Daily AI will automatically use Silero VAD if you've installed the dependencies.
+The `DailyTransport` can use the VAD support built into the WebRTC library with no additional dependencies. However, we recommend installing the optional `silero` dependency if your platform supports it. This is an AI VAD library powered by Torch, and it's generally a bit better at distinguising talking from background noise. Pipecat will automatically use Silero VAD if you've installed the dependencies.
 
 ## Event Handlers
 

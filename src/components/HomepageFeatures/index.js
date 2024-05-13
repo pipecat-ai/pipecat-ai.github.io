@@ -9,7 +9,7 @@ const FeatureList = [
     description: (
       <>
         Read the <a href="docs/intro">docs</a> to learn how to start building
-        bots with Daily AI.
+        bots with Pipecat.
       </>
     ),
   },
@@ -19,7 +19,9 @@ const FeatureList = [
     description: (
       <>
         Skip the boring stuff and use an{" "}
-        <a href="https://github.com/daily-co/dailyai-examples">example bot</a>{" "}
+        <a href="https://github.com/pipecat-ai/pipecat/tree/main/examples">
+          example bot
+        </a>{" "}
         to get started even faster.
       </>
     ),
@@ -30,7 +32,7 @@ const FeatureList = [
     description: (
       <>
         Find out more at{" "}
-        <a href="https://github.com/daily-co/dailyai">
+        <a href="https://github.com/pipecat-ai/pipecat">
           the framework GitHub repo
         </a>
         .

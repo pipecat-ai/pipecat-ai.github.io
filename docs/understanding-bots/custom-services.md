@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Building Your Own Services
 
-Once you've built a few simple bots by combining existing services, you'll want to start solving more complex problems, which means building your own services. Fortunately, it's pretty straightforward: You create a subclass of `AIService`, and implement a method called `process_frame`. For example, here's a `TranslationProcessor` service, used in the [translation example](https://github.com/daily-co/dailyai-examples/tree/main/translation-chatbot):
+Once you've built a few simple bots by combining existing services, you'll want to start solving more complex problems, which means building your own services. Fortunately, it's pretty straightforward: You create a subclass of `AIService`, and implement a method called `process_frame`. For example, here's a `TranslationProcessor` service, used in the [translation example](https://github.com/pipecat-ai/pipecat/tree/main/examples/tree/main/translation-chatbot):
 
 ```python
 class TranslationProcessor(AIService):
@@ -50,4 +50,4 @@ class ImageSyncAggregator(AIService):
 
 When this service receives a `TextFrame`, it yields an `ImageFrame` that contains a character with its mouth open, then it yields the received `TextFrame`, then it yields an `ImageFrame` with the character's mouth closed. Because of the way subsequent services (like TTS) keep frames in order, the end result will be the transport displaying the "talking" image, then playing back the TTS audio, then displaying the "quiet" image. As before, anything that isn't a `TextFrame` gets passed along unmodified.
 
-Eventually, you'll find your bot doing something you don't expect. Let's learn about how to debug Daily AI apps in the next section.
+Eventually, you'll find your bot doing something you don't expect. Let's learn about how to debug Pipecat apps in the next section.

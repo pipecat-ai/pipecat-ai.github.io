@@ -1,10 +1,10 @@
 # Utility Services
 
-In addition to the various AI services available in Daily AI, there are a handful of utility service classes that help you build your app.
+In addition to the various AI services available in Pipecat, there are a handful of utility service classes that help you build your app.
 
 ## Aggregators
 
-These should all be imported from `dailyai.pipeline.aggregators`.
+These should all be imported from `pipecat.pipeline.aggregators`.
 
 ### `LLMUserResponseAggregator` and `LLMAssistantResponseAggregator`
 
@@ -32,7 +32,7 @@ LLMAssistantResponseAggregator:
 - Text: `TextFrame
 - End: `LLMResponseEndFrame`
 
-You can see this in action in [the chatbot example app](https://github.com/daily-co/dailyai-examples/blob/b8823527065d4086f9a98f8008cc51d64f3ce969/chatbot/bot.py).
+You can see this in action in [the chatbot example app](https://github.com/pipecat-ai/pipecat/tree/main/examples/blob/b8823527065d4086f9a98f8008cc51d64f3ce969/chatbot/bot.py).
 
 ### `UserResponseAggregator`
 
@@ -89,7 +89,7 @@ It's important to keep in mind that the parallel pipeline doesn't let frames get
 
 ### `GatedAggregator`
 
-For more information on the `GatedAggregator`, take a look at [this example in the framework](https://github.com/daily-co/daily-ai-sdk/blob/e22babbae2ef33454158b59831114734adf5f5d8/examples/foundational/05-sync-speech-and-image.py), as well as [the comments in the source code](https://github.com/daily-co/dailyai/blob/db05a9b29b24d483815b60a3e727fae3f874666d/src/dailyai/pipeline/aggregators.py#L418).
+For more information on the `GatedAggregator`, take a look at [this example in the framework](https://github.com/daily-co/daily-ai-sdk/blob/e22babbae2ef33454158b59831114734adf5f5d8/examples/foundational/05-sync-speech-and-image.py), as well as [the comments in the source code](https://github.com/pipecat-ai/pipecat/blob/db05a9b29b24d483815b60a3e727fae3f874666d/src/pipecat/pipeline/aggregators.py#L418).
 
 ### `VisionImageFrameAggregator`
 

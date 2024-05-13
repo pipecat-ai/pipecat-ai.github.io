@@ -1,6 +1,6 @@
 # Supported Services
 
-DailyAI supports many different third-party services that host Large Language Models (LLMs), text-to-speech (TTS), and speech-to-text (STT) services, as well as image diffusion/generation and image recognition/vision.
+Pipecat supports many different third-party services that host Large Language Models (LLMs), text-to-speech (TTS), and speech-to-text (STT) services, as well as image diffusion/generation and image recognition/vision.
 
 - ✅: Hosted service
 - 💻: Runs locally

@@ -7,7 +7,7 @@ Once you have a working bot that you can run with a command like `python bot.py`
 
 ## Step 1: A bot server
 
-You're almost certainly going to need a web server to run your bots. The examples include a [simple web server](https://github.com/daily-co/dailyai-examples/blob/main/chatbot/server.py) that shows how you might do this.
+You're almost certainly going to need a web server to run your bots. The examples include a [simple web server](https://github.com/pipecat-ai/pipecat/tree/main/examples/blob/main/chatbot/server.py) that shows how you might do this.
 
 The `chatbot` example is a simple bot that uses `DailyTransport` and [Daily Prebuilt](https://www.daily.co/products/prebuilt-video-call-app/) as the front-end. If you run `python server.py` and then open `http://localhost:7860` in a web browser, the server will:
 
@@ -17,7 +17,7 @@ The `chatbot` example is a simple bot that uses `DailyTransport` and [Daily Preb
 
 The bot subprocess exits when you leave the room, or after a predetermined amount of time (`duration_minutes` in DailyTransport).
 
-The [Storytelling Chatbot](https://github.com/daily-co/dailyai-examples/tree/main/storytelling-chatbot) example has a good example of a more complex webserver. That example has a custom frontend. The server is serving the frontend, as well as a few API endpoints for creating Daily rooms, starting bots, and monitoring overall performance.
+The [Storytelling Chatbot](https://github.com/pipecat-ai/pipecat/tree/main/examples/tree/main/storytelling-chatbot) example has a good example of a more complex webserver. That example has a custom frontend. The server is serving the frontend, as well as a few API endpoints for creating Daily rooms, starting bots, and monitoring overall performance.
 
 ## Step 2: A host somewhere
 

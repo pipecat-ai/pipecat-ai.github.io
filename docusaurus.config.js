@@ -8,7 +8,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Daily AI",
+  title: "Pipecat",
   tagline:
     "An open source framework for real-time, multi-modal, conversational AI applications.",
   favicon: "img/favicon.ico",
@@ -17,12 +17,12 @@ const config = {
   url: "https://daily-co.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/dailyai-docs/",
+  baseUrl: "/pipecat-docs/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "daily-co", // Usually your GitHub org/user name.
-  projectName: "dailyai-docs", // Usually your repo name.
+  projectName: "pipecat-docs", // Usually your repo name.
   trailingSlash: false,
 
   onBrokenLinks: "warn",
@@ -68,7 +68,7 @@ const config = {
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
       navbar: {
-        title: "Daily AI",
+        title: "Pipecat",
 
         items: [
           {
@@ -78,7 +78,7 @@ const config = {
             label: "Docs",
           },
           {
-            href: "https://github.com/daily-co/dailyai",
+            href: "https://github.com/pipecat-ai/pipecat",
             label: "GitHub",
             position: "right",
           },
@@ -92,11 +92,11 @@ const config = {
             items: [
               {
                 label: "GitHub",
-                href: "https://github.com/daily-co/dailyai",
+                href: "https://github.com/pipecat-ai/pipecat",
               },
               {
                 label: "GitHub (Examples)",
-                href: "https://github.com/daily-co/dailyai-examples",
+                href: "https://github.com/pipecat-ai/pipecat/tree/main/examples",
               },
               {
                 label: "Twitter",

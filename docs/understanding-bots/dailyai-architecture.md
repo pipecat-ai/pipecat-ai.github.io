@@ -2,9 +2,9 @@
 sidebar_position: 1
 ---
 
-# The Architecture of Daily AI
+# The Architecture of Pipecat
 
-`dailyai` is a framework for building real-time, multimodal AI apps. "Multimodal" means you can use any combination of audio, video, images, and/or text in your interactions. And "real-time" means that things are happening quickly enough that it feels conversational—a "back-and-forth" with a bot, not submitting a query and waiting for results.
+`pipecat` is a framework for building real-time, multimodal AI apps. "Multimodal" means you can use any combination of audio, video, images, and/or text in your interactions. And "real-time" means that things are happening quickly enough that it feels conversational—a "back-and-forth" with a bot, not submitting a query and waiting for results.
 
 To understand this, let's look at an example of talking to an LLM-powered chatbot. Here's a video of a conversation with the `chatbot` example app:
 
@@ -42,17 +42,17 @@ The diagram for this approach looks like this:
 
 </div>
 
-This structure is sometimes called a _data processing pipeline_, or just 'pipeline' for short. It's a fundamental part of how `dailyai` apps work. Here's a diagram showing the architecture of `dailyai` apps:
+This structure is sometimes called a _data processing pipeline_, or just 'pipeline' for short. It's a fundamental part of how `pipecat` apps work. Here's a diagram showing the architecture of `pipecat` apps:
 
 <div style={{textAlign: 'center'}}>
 
-![DailyAI Architecture](assets/dailyai-architecture.svg)
+![Pipecat Architecture](assets/pipecat-architecture.svg)
 
 </div>
 
 There are four important terms in that diagram to define.
 
-A **frame** is a container for different data types. They're the fundamental unit of data that moves through a `dailyai` app. There are frame types for text data, images, and audio. But there are many others, like LLM context frames, sprite animation frames, transcription frames, and more.
+A **frame** is a container for different data types. They're the fundamental unit of data that moves through a `pipecat` app. There are frame types for text data, images, and audio. But there are many others, like LLM context frames, sprite animation frames, transcription frames, and more.
 
 A **service** processes the stream of frames moving through the pipeline in some way. A service takes each frame that comes in to its input and decides whether to pass it along to the next service, modify it in some way, or consume it and possibly generate some other kind of output frame(s). For example, a text-to-speech service only cares about text frames; it will forward along all other frames, but it will consume text frames, generate speech, and emit that speech as audio frames. An LLM service will consume an LLM context frame (with a list of `user` and `assistant` messages) and emit a bunch of text frames. A "logger" service might forward along all types of frames, but log them to the console as it forwards them. One important convention to reiterate: _services should just pass along frames that they don't do anything with._
 

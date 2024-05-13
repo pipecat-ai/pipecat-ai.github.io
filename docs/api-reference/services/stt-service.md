@@ -9,7 +9,7 @@ transport.transcription_settings["extra"]["punctuate"] = True
 
 These settings enable Deepgram to return transcriptions very quickly, but still include punctuation. This makes it easier to do sentence aggregation or display captions.
 
-Deepgram provides transcription to the Daily call server, which forwards the transcriptions to the clients connected to the call. Daily AI makes those transacriptions available as `TranscriptionFrame`s in your app. Deepgram determines when it has enough audio data to transcribe a user's speech, so it will return full sentences or phrases. There are some helpful [utility services](utilities) that can ensure you have a complete response from a user before processing their speech.
+Deepgram provides transcription to the Daily call server, which forwards the transcriptions to the clients connected to the call. Pipecat makes those transacriptions available as `TranscriptionFrame`s in your app. Deepgram determines when it has enough audio data to transcribe a user's speech, so it will return full sentences or phrases. There are some helpful [utility services](utilities) that can ensure you have a complete response from a user before processing their speech.
 
 ## Local transcription with Whisper
 
