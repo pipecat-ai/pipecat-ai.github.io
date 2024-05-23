@@ -312,7 +312,6 @@ USER user
 WORKDIR $HOME/app
 
 # Install Python dependencies
-COPY assets/* assets/
 COPY *.py .
 COPY ./requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir --upgrade -r requirements.txt
@@ -324,6 +323,15 @@ RUN cd web-ui && npm run build
 
 # Start the FastAPI server
 CMD python3 bot_runner.py --host "0.0.0.0" --port ${FAST_API_PORT}
+```
+
+The bot runner and bot `requirements.txt`:
+```
+pipecat-ai[daily,openai,silero]
+fastapi
+uvicorn
+requests
+python-dotenv
 ```
 
 And finally, let's create a `.env` file with our service keys
@@ -354,6 +362,7 @@ We should now have a project that contains the following files:
 - `bot.py`
 - `bot_runner.py`
 - `daily_helpers.py`
+- `requirements.txt`
 - `.env`
 - `Dockerfile`
 
