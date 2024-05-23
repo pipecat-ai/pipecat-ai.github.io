@@ -3,28 +3,48 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
+@import url("https://fonts.googleapis.com/css2family=Inter:wght@400;700&display=swap");
 
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #f97316;
-  --ifm-color-primary-dark: #c2410c;
-  --ifm-color-primary-darker: #7c2d12;
+  --ifm-color-primary-dark: #ea580c;
+  --ifm-color-primary-darker: #9a3412;
   --ifm-color-primary-darkest: #431407;
   --ifm-color-primary-light: #fb923c;
-  --ifm-color-primary-lighter: #fdba74;
-  --ifm-color-primary-lightest: #ffedd5;
-  --ifm-code-font-size: 95%;
+  --ifm-color-primary-lighter: #fed7aa;
+  --ifm-color-primary-lightest: #fff7ed;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --ifm-code-font-size: 95%;
+  --ifm-font-family-base: "Inter", sans-serif;
+
+  --ifm-hero-background-color: transparent;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #f97316;
-  --ifm-color-primary-dark: #c2410c;
-  --ifm-color-primary-darker: #7c2d12;
-  --ifm-color-primary-darkest: #431407;
-  --ifm-color-primary-light: #fb923c;
-  --ifm-color-primary-lighter: #fdba74;
-  --ifm-color-primary-lightest: #ffedd5;
+[data-theme="dark"] {
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-hero-background-color: transparent;
+}
+
+.button.button--secondary {
+  background-color: #000000;
+  border-color: #000000;
+  color: #ffffff;
+}
+
+.button.button--lg {
+  border-radius: 12px;
+}
+
+[data-theme="dark"] {
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-hero-background-color: transparent;
+
+  .button.button--secondary {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #000000;
+  }
 }

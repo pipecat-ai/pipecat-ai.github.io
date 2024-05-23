@@ -49,13 +49,6 @@ const config = {
           editUrl:
             "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
-        },
         theme: {
           customCss: "./src/css/custom.css",
         },
@@ -70,13 +63,26 @@ const config = {
       image: "img/docusaurus-social-card.jpg",
       navbar: {
         title: "Pipecat",
-
+        logo: {
+          alt: "Pipecat",
+          src: "img/logo.svg",
+          srcDark: "img/logo-dark.svg",
+          href: "/",
+          target: "_self",
+          width: 42,
+          height: 42,
+        },
         items: [
           {
             type: "docSidebar",
             sidebarId: "tutorialSidebar",
             position: "left",
             label: "Docs",
+          },
+          {
+            href: "https://discord.gg/pipecat",
+            label: "Discord",
+            position: "right",
           },
           {
             href: "https://github.com/pipecat-ai/pipecat",
