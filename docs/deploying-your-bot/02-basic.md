@@ -73,7 +73,7 @@ Whatever you use for your transport layer, you’ll likely need to setup some en
 
 A good pattern to work to is the assumption that your `bot.py` is an encapsulated entity and does not have any knowledge of the `bot_runner.py`. You should provide the bot everything it needs to operate during instantiation.
 
-If you need a way of keeping track of all your running bots, the bot runner could evolve to become a supervisor-like entity.
+Sticking to this approach helps keep things simple and makes it easier to step through debugging (if the bot launched, you know to look for errors in your bot file.) 
 
 ### Showing a web UI
 
