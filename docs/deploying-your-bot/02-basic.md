@@ -14,6 +14,8 @@ A Pipecat project will often consist of the following:
 
 ## Bot Runner
 
+HTTP service, providing a gateway for spawning bots:
+
 ![Basic pipeline image](assets/deployment-1.png)
 
 The anatomy of a bot runner service is arbitrary and dependant on your use-case, but at very least will have a method that spawns a new bot agent, for example:
@@ -62,7 +64,7 @@ You will have implemented a transport layer as part of your `bot.py` pipeline. T
 For this example, we will make use of Daily’s WebRTC transport. This will mean that our `bot_runner.py`  will need to do some configuration when it spawns a new bot:
 
 1. Create and configure a new Daily room for the session to take place in.
-2. Provision both the bot and the user an authentication token to join the session.
+2. Issue both the bot and the user an authentication token to join the session.
 
 Whatever you use for your transport layer, you’ll likely need to setup some environmental variables and run some custom code before spawning the agent.
 

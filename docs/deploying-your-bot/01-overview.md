@@ -23,7 +23,7 @@ If you're targeting scalable, client-server interactions, we recommend you use W
 
 Most chatbots require very little in the way of system resources, but if you are making use of custom models or require GPU-powered infrastructure, it's important to consider how to pre-cache local resources so that they are not downloaded at runtime. Your bot processes / VMs should aim to launch and connect as quickly as possible, so the user is not left waiting. Designing a pool of idle workers is out of scope for our documentation, but we aim to consider best practices in all of our examples.
 
-Most Pipecat examples make use of Silero VAD, and we recommend including that model as part of your Docker image so it's cached and readily available when your bot runs. The downside of this approach is that it can inflate the size of your container file, so you may want to consider making it availabile via a network volume and ensuring your bot knows where to find it.
+Most Pipecat examples make use of Silero VAD, and we recommend including that model as part of your Docker image so it's cached and readily available when your bot runs. The downside of this approach is that it can inflate the size of your container, so you may want to consider making it availabile via a network volume and ensuring your bot knows where to find it.
 
 For Silero, you can read more about how to do this [here](https://pypi.org/project/silero/#:~:text=Models%20are%20downloaded%20on%20demand,downloaded%20to%20a%20cache%20folder). 
 
