@@ -60,7 +60,7 @@ async def fetch_weather_from_api(llm, args):
 llm.register_function("get_current_weather", fetch_weather_from_api)
 ```
 
-The `register_function` function also has a `start_callback` property that accepts a different callback function to call when the LLM first receives a function name. Sometimes it can take a bit of time for the LLM to stream the full function call body back, so this hook is a convenient place to put a small 'ding' sound effect indicating the LLM is 'working', or a short text response like "let me think" that will get converted to speech later. Pipecat ignores anything returned from the start_callback. There are several examples of start callbacks in the patient-intake example.
+The `register_function` function also has a `start_callback` property that accepts a different callback function to call when the LLM first receives a function name. Sometimes it can take a bit of time for the LLM to stream the full function call body back, so this hook is a convenient place to put a small 'ding' sound effect indicating the LLM is 'working', or a short text response like "let me think" that will get converted to speech later. Pipecat ignores anything returned from the `start_callback`. There are several examples of start callbacks in the patient-intake example.
 
 Your callback also receives an `llm` parameter, which is the llm instance inside the running pipeline. You can use that to call `llm.process_frame` to re-prompt it yourself. You can also do other things, like calling `llm.push_frame(AudioRawFrame())` to play a sound effect. (The LLM service will just push that frame to the next processor down the pipeline, but it's the only 'hook' you have into the pipeline from inside the callback.)
 
