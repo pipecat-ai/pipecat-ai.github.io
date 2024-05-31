@@ -14,7 +14,7 @@ A Pipecat project will often consist of the following:
 
 ## Bot Runner
 
-HTTP service, providing a gateway for spawning bots:
+HTTP service, providing a gateway for spawning bots on-demand:
 
 ![Basic pipeline image](assets/deployment-1.png)
 
@@ -73,7 +73,7 @@ Whatever you use for your transport layer, you’ll likely need to setup some en
 
 A good pattern to work to is the assumption that your `bot.py` is an encapsulated entity and does not have any knowledge of the `bot_runner.py`. You should provide the bot everything it needs to operate during instantiation.
 
-Sticking to this approach helps keep things simple and makes it easier to step through debugging (if the bot launched, you know to look for errors in your bot file.) 
+Sticking to this approach helps keep things simple and makes it easier to step through debugging (if the bot launched and something goes wrong, you know to look for errors in your bot file.) 
 
 ### Showing a web UI
 
@@ -87,11 +87,13 @@ For the purposes of being feature complete in this documentation, we’ll includ
 
 As a first step, let's create a `bot_runner.py` that:
 
-- Creates an API for users
+- Creates an API for users to send requests to
 - Launches a bot as a subprocess
 - Serves a static web frontend for the user to interact with
 
 A full example of this code can be found in the [examples folder](https://github.com/pipecat-ai/pipecat/tree/main/examples) on the pipecat repo.
+
+### HTTP API
 
 `bot_runner.py`
 
@@ -263,11 +265,14 @@ if __name__ == "__main__":
         print("Pipecat runner shutting down...")
 ```
 
+### Transport helpers
+
 `daily_helpers.py`
 
 Abstractions for calling Daily's REST API. You can grab this file here: []
 
-`Dockerfile`
+### Dockerfile
+
 
 ```shell
 FROM python:3.11-bullseye
