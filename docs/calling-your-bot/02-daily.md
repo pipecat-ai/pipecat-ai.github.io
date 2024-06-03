@@ -7,7 +7,7 @@ We have a complete dialin-ready project using Daily as both a transport and PSTN
 ## Things you'll need
 
 - An active [Daily](daily.co) developer key.
-- One or more Daily provisioned number (covered below).
+- One or more Daily provisioned phone numbers (covered below).
 
 ### Do I need to provision my phone numbers through Daily?
 
@@ -15,7 +15,7 @@ You can use Daily solely as a transport if you prefer. This is particularly usef
 
 If you’re starting from scratch, using everything on one platform offers some convenience. By provisioning your phone numbers through Daily and using Daily as the transport layer, you won’t need to worry about initial call routing, for example.
 
-**The following guide assumes Daily for both WebRTC Transport and as a phone vendor.**
+**The following guide assumes use of Daily for both WebRTC transport and as a phone vendor.**
 
 ## Configuring your domain
 
@@ -27,9 +27,9 @@ TBC
 
 ## Configuring your bot runner
 
-You'll need a HTTP service that can receive incoming call hooks and trigger a new agent session. We discussed the concept of a [bot runner](http://localhost:3000/docs/deploying-your-bot/basic-pattern) in the deployment section, which we'll build on here to add support for dialin.
+You'll need a HTTP service that can receive incoming call hooks and trigger a new agent session. We discussed the concept of a [bot runner](http://localhost:3000/docs/deploying-your-bot/basic-pattern) in the deployment section, which we'll build on here to add support for incoming phone calls.
 
-Within the `start_bot` method, we'll need to grab both `callId` and `callDomain` from the incoming web request:
+Within the `start_bot` method, we'll need to grab both `callId` and `callDomain` from the incoming web request that is trigger by Daily when someone dials our number:
 
 ```python
   # Get the dial-in properties from the request
@@ -42,6 +42,29 @@ Within the `start_bot` method, we'll need to grab both `callId` and `callDomain`
             status_code=500,
             detail="Missing properties 'callId' or 'callDomain'")
 ```
+
+#### Pointing Daily to this URL
+
+Daily needs our `start_bot` URL as a webhook it can trigger when a user dials a phone number. Here is an example:
+
+```shell
+curl --location 'https://api.daily.co/v1' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer [DAILY API TOKEN HERE]' \
+--data '{
+    "properties": {
+        "pinless_dialin": {
+            "phone_number": "[DAILY PROVISIONED NUMBER HERE]",
+            "room_creation_api": "[BOT RUNNER URL]/start_bot"
+        }
+    }
+}'
+```
+
+If you want to test locally, you can expose your web method using a service such as [ngrok](https://ngrok.com/).
+
+Please refer to the REST documentation [here](TBC)
+
 
 ### Creating a new SIP-enabled room
 
