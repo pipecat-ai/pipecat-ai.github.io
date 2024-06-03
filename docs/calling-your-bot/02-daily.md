@@ -2,7 +2,7 @@
 
 ## Example project
 
-We have a complete dialin-ready project using Daily as both a transport and PSTN/SIP provider [here](#) Note: TBC
+We have a complete dialin-ready project using Daily as both a transport and PSTN/SIP provider [here](#)TBC. This guide reference the project and steps through the important parts that make dialin work.
 
 ## Things you'll need
 
@@ -16,6 +16,13 @@ You can use Daily solely as a transport if you prefer. This is particularly usef
 If you’re starting from scratch, using everything on one platform offers some convenience. By provisioning your phone numbers through Daily and using Daily as the transport layer, you won’t need to worry about initial call routing, for example.
 
 **The following guide assumes use of Daily for both WebRTC transport and as a phone vendor.**
+
+## How it works
+
+TBC: Image to go here
+
+When a user dials a Daily provisioned number, 
+
 
 ## Configuring your domain
 
@@ -162,4 +169,6 @@ async def on_dialin_ready(transport, cdata):
 
 Since we're using Daily as a phone vendor, this method is handled internally and we don't need to do anything. It can, however, be useful to override this default behaviour if you want to configure your bot in a certain way as soon as the call is ready. Typically, however, initial setup is done in the `on_first_participant_joined` event after the user has joined the session.
 
-For a full list of available events, please refer to Daily's documentation here: TBC
+## Further customization
+
+To further customize the experience, such as changing hold music or adding entry pins, please refer to Daily's documentation here: TBC
