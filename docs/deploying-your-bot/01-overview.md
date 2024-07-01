@@ -2,6 +2,8 @@
 
 You've created your Pipecat bot, had a good chat with it locally, and are eager to share it with the world. Let’s explore how to approach deployment.
 
+We're continually adding further deployment example projects to the Pipecat repo,which you can find [here](https://github.com/pipecat-ai/pipecat/tree/main/examples/deployment)
+
 ## Things you'll need
 
 - **Transport service** - Pipecat has existing services for various different [media transport](http://localhost:3000/docs/category/transports) modes, such as WebRTC or WebSockets. If you're not using a third-party service for handling media transport, you'll want to make sure that infrastructure is hosted and ready to receive connections.

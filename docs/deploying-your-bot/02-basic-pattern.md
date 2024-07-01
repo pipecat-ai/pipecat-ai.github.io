@@ -101,48 +101,31 @@ A full example of this code can be found in the [examples folder](https://github
 import os
 import argparse
 import subprocess
-import atexit
-from pathlib import Path
-from typing import Optional
+import requests
+
+from pipecat.transports.services.helpers.daily_rest import DailyRESTHelper, DailyRoomObject, DailyRoomProperties, DailyRoomParams
 
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse, JSONResponse
-
-from daily_helpers import create_room, get_token, check_room_url
+from fastapi.responses import JSONResponse
 
 from dotenv import load_dotenv
 load_dotenv(override=True)
 
-# Bot sub-process dict for status reporting and concurrency control
-bot_procs = {}
-
-
-def cleanup():
-    # Clean up function, just to be extra safe
-    for proc in bot_procs.values():
-        proc[0].terminate()
-        proc[0].wait()
-
-
-atexit.register(cleanup)
 
 # ------------ Configuration ------------ #
 
-MAX_SESSION_TIME = 10 * 60  # 10 minutes
-BOT_CAN_IDLE = True  # Does the bot leave when there are no connected peers
-REQUIRED_ENV_VARS = ['OPENAI_API_KEY', 'DAILY_API_KEY', 'ELEVENLABS_API_KEY']
+MAX_SESSION_TIME = 5 * 60  # 5 minutes
+REQUIRED_ENV_VARS = [
+    'DAILY_API_KEY',
+    'OPENAI_API_KEY',
+    'ELEVENLABS_API_KEY',
+    'ELEVENLABS_VOICE_ID']
 
-# Static file config
-SERVE_STATIC = False
-STATIC_DIR = "web-ui/dist"
-STATIC_ROUTE = "/static"
-STATIC_INDEX = "index.html"
+daily_rest_helper = DailyRESTHelper(
+    os.getenv("DAILY_API_KEY", ""),
+    os.getenv("DAILY_API_URL", 'https://api.daily.co/v1'))
 
-# Client UI config
-USE_OPEN_MIC = True  # Can the user freely talk, or do they need to wait their turn?
-USE_VIDEO = False  # Does this bot require user video?
 
 # ----------------- API ----------------- #
 
@@ -156,84 +139,64 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-# Optionally serve built client static files
-# Note: we recommend serving your client seperate from the bot
-# runner for better scalability and separation of concerns
-if SERVE_STATIC:
-    app.mount(STATIC_ROUTE, StaticFiles(
-        directory=STATIC_DIR, html=True), name="static")
-
-    @app.get("/{path_name:path}", response_class=FileResponse)
-    async def catch_all(path_name: Optional[str] = ""):
-        if path_name == "":
-            return FileResponse(f"{STATIC_DIR}/{STATIC_INDEX}")
-        file_path = Path(STATIC_DIR) / (path_name or "")
-        if file_path.is_file():
-            return file_path
-        html_file_path = file_path.with_suffix(".html")
-        if html_file_path.is_file():
-            return FileResponse(html_file_path)
-
-        raise HTTPException(
-            status_code=404, detail="Page not found")
+# ----------------- Main ----------------- #
 
 
 @app.post("/start_bot")
 async def start_bot(request: Request) -> JSONResponse:
+    try:
+        data = await request.json()
+        # Is this a webhook creation request?
+        if "test" in data:
+            return JSONResponse({"test": True})
+    except Exception as e:
+        pass
+
     # Use specified room URL, or create a new one if not specified
-    room_url = os.getenv("DAILY_SAMPLE_ROOM_URL", None)
+    room_url = os.getenv("DAILY_SAMPLE_ROOM_URL", "")
 
     if not room_url:
+        params = DailyRoomParams(
+            properties=DailyRoomProperties()
+        )
         try:
-            room_url, sip_uri = create_room(MAX_SESSION_TIME)
-        except Exception:
+            room: DailyRoomObject = daily_rest_helper.create_room(params=params)
+        except Exception as e:
             raise HTTPException(
                 status_code=500,
-                detail="Unable to provision room")
+                detail=f"Unable to provision room {e}")
     else:
-        # Check passed room URL exists
+        # Check passed room URL exists, we should assume that it already has a sip set up
         try:
-            check_room_url(room_url)
+            room: DailyRoomObject = daily_rest_helper.get_room_from_url(room_url)
         except Exception:
             raise HTTPException(
                 status_code=500, detail=f"Room not found: {room_url}")
 
     # Give the agent a token to join the session
-    token = get_token(room_url, MAX_SESSION_TIME)
+    token = daily_rest_helper.get_token(room.url, MAX_SESSION_TIME)
 
-    if not room_url or not token:
+    if not room or not token:
         raise HTTPException(
             status_code=500, detail=f"Failed to get token for room: {room_url}")
 
-    # Spawn a new agent, and join the user session
     try:
-        proc = subprocess.Popen(
-            [
-                f"python3 -m bot -u {room_url} -t {token}"
-            ],
+        subprocess.Popen(
+            [f"python3 -m bot -u {room.url} -t {token}"],
             shell=True,
             bufsize=1,
-            cwd=os.path.dirname(os.path.abspath(__file__))
-        )
-        bot_procs[proc.pid] = (proc, room_url)
+            cwd=os.path.dirname(os.path.abspath(__file__)))
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Failed to start subprocess: {e}")
 
     # Grab a token for the user to join with
-    user_token = get_token(room_url, MAX_SESSION_TIME)
+    user_token = daily_rest_helper.get_token(room.url, MAX_SESSION_TIME)
 
-    # Return the bot PID, user token, and room URL
     return JSONResponse({
-        "bot_pid": proc.pid,
+        "room_url": room.url,
         "token": user_token,
-        "room_url": room_url,
-        # And some UI config vars
-        "config": {"open_mic": USE_OPEN_MIC, "use_video": USE_VIDEO}
     })
-
-
-# ----------------- Main ----------------- #
 
 if __name__ == "__main__":
     # Check environment variables
@@ -243,11 +206,11 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Pipecat Bot Runner")
     parser.add_argument("--host", type=str,
-                        default=os.getenv("HOST", "localhost"), help="Host address")
+                        default=os.getenv("HOST", "0.0.0.0"), help="Host address")
     parser.add_argument("--port", type=int,
                         default=os.getenv("PORT", 7860), help="Port number")
     parser.add_argument("--reload", action="store_true",
-                        default=True, help="Reload code on change")
+                        default=False, help="Reload code on change")
 
     config = parser.parse_args()
 
@@ -263,6 +226,7 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
         print("Pipecat runner shutting down...")
+
 ```
 
 ### Transport helpers
@@ -277,62 +241,25 @@ Abstractions for calling Daily's REST API. You can grab this file here: []
 ```shell
 FROM python:3.11-bullseye
 
-ARG DEBIAN_FRONTEND=noninteractive
-ARG USE_PERSISTENT_DATA
-ENV PYTHONUNBUFFERED=1
-ENV NODE_MAJOR=20
-
-# Expose FastAPI port
+# Open port 7860 for http service
 ENV FAST_API_PORT=7860
 EXPOSE 7860
-
-# Install system dependencies
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    build-essential \
-    git \
-    ffmpeg \
-    google-perftools \
-    ca-certificates curl gnupg \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install Node.js
-RUN mkdir -p /etc/apt/keyrings 
-RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_${NODE_MAJOR}.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list > /dev/null
-RUN apt-get update && apt-get install nodejs -y
-
-# Set up a new user named "user" with user ID 1000
-RUN useradd -m -u 1000 user
-
-# Set home to the user's home directory
-ENV HOME=/home/user \
-    PATH=/home/user/.local/bin:$PATH \
-    PYTHONPATH=$HOME/app \
-    PYTHONUNBUFFERED=1
-
-# Switch to the "user" user
-USER user
-
-# Set the working directory to the user's home directory
-WORKDIR $HOME/app
 
 # Install Python dependencies
 COPY *.py .
 COPY ./requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir --upgrade -r requirements.txt
 
-# Copy frontend app and build
-COPY --chown=user web-ui/ web-ui/
-RUN cd web-ui && npm install
-RUN cd web-ui && npm run build
+# Install models
+RUN python3 install_deps.py
 
 # Start the FastAPI server
-CMD python3 bot_runner.py --host "0.0.0.0" --port ${FAST_API_PORT}
+CMD python3 bot_runner.py --port ${FAST_API_PORT}
 ```
 
 The bot runner and bot `requirements.txt`:
 ```
-pipecat-ai[daily,openai,silero]
+pipecat-ai[...]
 fastapi
 uvicorn
 requests
@@ -366,7 +293,6 @@ We should now have a project that contains the following files:
 
 - `bot.py`
 - `bot_runner.py`
-- `daily_helpers.py`
 - `requirements.txt`
 - `.env`
 - `Dockerfile`
