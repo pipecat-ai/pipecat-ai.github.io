@@ -2,7 +2,8 @@
 
 You've created your Pipecat bot, had a good chat with it locally, and are eager to share it with the world. Let’s explore how to approach deployment.
 
-We're continually adding further deployment example projects to the Pipecat repo,which you can find [here](https://github.com/pipecat-ai/pipecat/tree/main/examples/deployment)
+> [!IMPORTANT]
+> We're continually adding further deployment example projects to the Pipecat repo,which you can find [here](https://github.com/pipecat-ai/pipecat/tree/main/examples/deployment).
 
 ## Things you'll need
 
