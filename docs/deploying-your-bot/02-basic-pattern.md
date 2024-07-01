@@ -229,11 +229,6 @@ if __name__ == "__main__":
 
 ```
 
-### Transport helpers
-
-`daily_helpers.py`
-
-Abstractions for calling Daily's REST API. You can grab this file here: []
 
 ### Dockerfile
 
@@ -269,10 +264,10 @@ python-dotenv
 And finally, let's create a `.env` file with our service keys
 
 ```
-DAILY_SAMPLE_ROOM_URL=https://yourdomain.daily.co/yourroom # (optional: for joining the bot to the same room repeatedly for local dev)
 DAILY_API_KEY=...
 OPENAI_API_KEY=...
 ELEVENLABS_API_KEY=...
+ELEVENLABS_VOICE_ID=...
 ```
 
 ### How it works

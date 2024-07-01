@@ -2,14 +2,13 @@
 
 You've created your Pipecat bot, had a good chat with it locally, and are eager to share it with the world. Let’s explore how to approach deployment.
 
-> [!IMPORTANT]
 > We're continually adding further deployment example projects to the Pipecat repo,which you can find [here](https://github.com/pipecat-ai/pipecat/tree/main/examples/deployment).
 
 ## Things you'll need
 
 - **Transport service** - Pipecat has existing services for various different [media transport](http://localhost:3000/docs/category/transports) modes, such as WebRTC or WebSockets. If you're not using a third-party service for handling media transport, you'll want to make sure that infrastructure is hosted and ready to receive connections.
 
-- **Deployment target** - You can deploy and run Pipecat bots anywhere that can run Python code - Google Cloud Run, AWS, Fly.io etc. We recommend providers that offer APIs, so you can programmatically spawn new bot agents on-demand. We like [fly.io](fly.io) for its simplicity. 
+- **Deployment target** - You can deploy and run Pipecat bots anywhere that can run Python code - Google Cloud Run, AWS, Fly.io etc. We recommend providers that offer APIs, so you can programmatically spawn new bot agents on-demand.
 
 - **Docker** - If you're targeting cloud architecture / VMs, they will most often expect a containerized app. It's worth having Docker installed and setup to run builds. We'll step through creating a `Dockerfile` in this documentation.
 
@@ -40,4 +39,3 @@ torch.hub.load(repo_or_dir='snakers4/silero-vad', model='silero_vad', force_relo
 Once you've familiarized yourself with the Pipecat [deployment pattern](/docs/deploying-your-bot/02-basic-pattern.md), here are some guides that walk you through the process for the two primary hardware use cases. Remember, your Pipecat bots are simply Python processes, so you can host them on whichever infrastructure or service best suits your project.
 
 - [Deploying with Fly.io](/docs/deploying-your-bot/fly) for service-driven / CPU bots
-- [Deploying with Cerebrium](/docs/deploying-your-bot/cerebrium) for GPU-enabled bots
