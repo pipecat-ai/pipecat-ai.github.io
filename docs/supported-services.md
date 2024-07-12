@@ -6,16 +6,21 @@ Pipecat supports many different third-party services that host Large Language Mo
 - 💻: Runs locally
 - 🚧: Under construction (coming soon)
 
-| Service     | LLM | TTS | Image Gen | Vision | STT |
-| ----------- | --- | --- | --------- | ------ | --- |
-| Anthropic   | ✅  |     |           |        |     |
-| Azure       | ✅  | ✅  | ✅        |        |     |
-| Deepgram    |     | ✅  |           |        | ✅  |
-| Eleven Labs |     | ✅  |           |        |     |
-| Fal.ai      |     |     | ✅        |        |     |
-| Fireworks   | ✅  |     | 🚧        | ✅     |     |
-| Moondream   |     |     |           | 💻     |     |
-| OLLama      | 💻  |     |           |        |     |
-| OpenAI      | ✅  |     | ✅        | ✅     |     |
-| PlayHT      |     | ✅  |           |        |     |
-| Whisper     |     |     |           |        | 💻  |
+| Service       | LLM | TTS | Image Gen | Vision | STT |
+| ------------- | --- | --- | --------- | ------ | --- |
+| Anthropic     | ✅  |     |           |        |     |
+| Azure         | ✅  | ✅  | ✅        |        |     |
+| Cartesia      |     | ✅  |           |        |     |
+| Deepgram      |     | ✅  |           |        | ✅  |
+| Eleven Labs   |     | ✅  |           |        |     |
+| Fal.ai        |     |     | ✅        |        |     |
+| Fireworks     | ✅  |     | 🚧        | ✅     |     |
+| Gladia        |     |     |           |        | ✅  |
+| Google Gemini | ✅  |     |           |        |     |
+| Moondream     |     |     |           | 💻     |     |
+| Ollama        | 💻  |     |           |        |     |
+| OpenAI        | ✅  |     | ✅        | ✅     |     |
+| OpenPipe      | ✅  |     |           |        |     |
+| PlayHT        |     | ✅  |           |        |     |
+| Whisper       |     |     |           |        | 💻  |
+| XTTS          |     |     |           |        | 💻  |
